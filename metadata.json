@@ -1,0 +1,6 @@
+{
+  "name": "FinFlow API",
+  "description": "Developer-First Payments API Platform & Minimalist Financial Dashboard for modern businesses and developers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,397 @@
+import { Transaction, Invoice, ApiKey, WebhookEvent, AlertNotification, UserProfile, DauMetric } from '../types';
+
+export const initialUserProfile: UserProfile = {
+  id: 'usr_anup_raval_01',
+  name: 'Anup Raval',
+  email: 'ravalanup@gmail.com',
+  role: 'Principal Platform Architect',
+  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+  organization: 'Default Organization',
+  project: 'Main Project',
+  provider: 'finflow_demo',
+  accountBalance: 12450.00,
+  lowBalanceThreshold: 15000.00,
+  isSandbox: true,
+};
+
+export const alternateProfiles: UserProfile[] = [
+  {
+    id: 'usr_anup_raval_01',
+    name: 'Anup Raval',
+    email: 'ravalanup@gmail.com',
+    role: 'Principal Platform Architect',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    organization: 'FinFlow Core Infrastructure',
+    project: 'Production Cluster US-East',
+    provider: 'google',
+    accountBalance: 842500.00,
+    lowBalanceThreshold: 50000.00,
+    isSandbox: false,
+  },
+  {
+    id: 'usr_sarah_lin_02',
+    name: 'Sarah Lin',
+    email: 'sarah.lin@creativestudio.io',
+    role: 'Freelance Design Lead',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+    organization: 'Studio Vertex LLC',
+    project: 'Client Invoicing & Billing',
+    provider: 'github',
+    accountBalance: 8450.00,
+    lowBalanceThreshold: 10000.00,
+    isSandbox: true,
+  },
+  {
+    id: 'usr_marcus_vance_03',
+    name: 'Marcus Vance',
+    email: 'marcus@cloudmetrics.dev',
+    role: 'Fintech Founder & CTO',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    organization: 'SaaS MetricFlow',
+    project: 'Embedded Checkout V2',
+    provider: 'google',
+    accountBalance: 145800.00,
+    lowBalanceThreshold: 20000.00,
+    isSandbox: true,
+  }
+];
+
+export const initialTransactions: Transaction[] = [
+  {
+    id: 'tx_98412_a',
+    endpoint: 'POST /v1/payments',
+    method: 'POST',
+    status: 'succeeded',
+    statusCode: 200,
+    latencyMs: 42,
+    amount: 450.00,
+    currency: 'USD',
+    customer: 'cus_apex_logistics',
+    customerEmail: 'billing@apexlogistics.com',
+    description: 'API Subscription Tier 3 - Q3 Invoice',
+    timestamp: 'Just now',
+    livemode: false,
+    type: 'payment',
+    fee: 13.05,
+  },
+  {
+    id: 'tx_98411_b',
+    endpoint: 'GET /v1/customers',
+    method: 'GET',
+    status: 'succeeded',
+    statusCode: 200,
+    latencyMs: 12,
+    amount: 0.00,
+    currency: 'USD',
+    customer: 'cus_stellar_app',
+    customerEmail: 'dev@stellarapp.io',
+    description: 'Fetch Customer Payment Methods',
+    timestamp: '1 min ago',
+    livemode: false,
+    type: 'payment',
+    fee: 0.00,
+  },
+  {
+    id: 'tx_98410_c',
+    endpoint: 'POST /v1/refunds',
+    method: 'POST',
+    status: 'pending',
+    statusCode: 202,
+    latencyMs: 156,
+    amount: 12.50,
+    currency: 'USD',
+    customer: 'cus_dev_sandbox_09',
+    customerEmail: 'tester@sandbox.dev',
+    description: 'Partial micro-refund for sandbox charge',
+    timestamp: '4 mins ago',
+    livemode: false,
+    type: 'refund',
+    fee: 0.00,
+  },
+  {
+    id: 'tx_98409_d',
+    endpoint: 'POST /v1/payments',
+    method: 'POST',
+    status: 'failed',
+    statusCode: 402,
+    latencyMs: 31,
+    amount: 99.00,
+    currency: 'USD',
+    customer: 'cus_declined_card_1',
+    customerEmail: 'alex@declined-test.com',
+    description: 'Direct charge (insufficient_funds)',
+    timestamp: '12 mins ago',
+    livemode: false,
+    type: 'payment',
+    fee: 0.00,
+  },
+  {
+    id: 'tx_98408_e',
+    endpoint: 'POST /v1/subscriptions',
+    method: 'POST',
+    status: 'succeeded',
+    statusCode: 201,
+    latencyMs: 84,
+    amount: 1200.00,
+    currency: 'USD',
+    customer: 'cus_fintech_hub',
+    customerEmail: 'ops@fintechhub.co',
+    description: 'Enterprise Developer Tier Monthly',
+    timestamp: '25 mins ago',
+    livemode: true,
+    type: 'subscription',
+    fee: 34.80,
+  },
+  {
+    id: 'tx_98407_f',
+    endpoint: 'POST /v1/payments',
+    method: 'POST',
+    status: 'succeeded',
+    statusCode: 200,
+    latencyMs: 48,
+    amount: 2850.00,
+    currency: 'USD',
+    customer: 'cus_nexus_ai',
+    customerEmail: 'finance@nexusai.tech',
+    description: 'Custom ML pipeline usage charge',
+    timestamp: '1 hour ago',
+    livemode: true,
+    type: 'payment',
+    fee: 82.65,
+  },
+  {
+    id: 'tx_98406_g',
+    endpoint: 'POST /v1/payouts',
+    method: 'POST',
+    status: 'succeeded',
+    statusCode: 200,
+    latencyMs: 112,
+    amount: 5400.00,
+    currency: 'USD',
+    customer: 'payout_chase_checking_9921',
+    description: 'Weekly Automated Merchant Payout to Chase Bank',
+    timestamp: '3 hours ago',
+    livemode: true,
+    type: 'invoice_payout',
+    fee: 2.50,
+  }
+];
+
+export const initialInvoices: Invoice[] = [
+  {
+    id: 'inv_88201',
+    invoiceNumber: 'INV-2026-088',
+    clientName: 'Acme SaaS Holdings',
+    clientEmail: 'billing@acmeholdings.com',
+    amount: 4500.00,
+    currency: 'USD',
+    status: 'overdue',
+    issueDate: '2026-07-15',
+    dueDate: '2026-08-15',
+    daysOverdue: 17,
+    notes: 'Embedded Payments API Integration - Phase 1 milestone',
+    items: [
+      { description: 'FinFlow Gateway Custom Webhook Setup', quantity: 1, unitPrice: 3000.00, amount: 3000.00 },
+      { description: 'High-Volume Ledger Provisioning', quantity: 1, unitPrice: 1500.00, amount: 1500.00 },
+    ]
+  },
+  {
+    id: 'inv_88202',
+    invoiceNumber: 'INV-2026-091',
+    clientName: 'Studio Vertex Design',
+    clientEmail: 'contact@studiovertex.design',
+    amount: 2950.00,
+    currency: 'USD',
+    status: 'overdue',
+    issueDate: '2026-07-28',
+    dueDate: '2026-08-28',
+    daysOverdue: 4,
+    notes: 'Freelance developer consulting & SDK wrapper implementation',
+    items: [
+      { description: 'React Native Payment Sheet Widget', quantity: 20, unitPrice: 100.00, amount: 2000.00 },
+      { description: 'OAuth 2.0 Security Audit', quantity: 1, unitPrice: 950.00, amount: 950.00 },
+    ]
+  },
+  {
+    id: 'inv_88203',
+    invoiceNumber: 'INV-2026-094',
+    clientName: 'HyperScale Cloud Inc',
+    clientEmail: 'accounts@hyperscale.io',
+    amount: 14200.00,
+    currency: 'USD',
+    status: 'pending',
+    issueDate: '2026-08-20',
+    dueDate: '2026-09-20',
+    notes: 'Multi-tenant payments broker setup (Net 30 terms)',
+    items: [
+      { description: 'FinFlow Enterprise Engine Dedicated Node', quantity: 1, unitPrice: 14200.00, amount: 14200.00 }
+    ]
+  },
+  {
+    id: 'inv_88204',
+    invoiceNumber: 'INV-2026-095',
+    clientName: 'Beacon Freelance Network',
+    clientEmail: 'payouts@beaconnetwork.org',
+    amount: 3800.00,
+    currency: 'USD',
+    status: 'paid',
+    issueDate: '2026-08-10',
+    dueDate: '2026-08-25',
+    notes: 'Paid via Stripe Connect direct transfer',
+    items: [
+      { description: 'Automated Payout Engine Licensing', quantity: 1, unitPrice: 3800.00, amount: 3800.00 }
+    ]
+  }
+];
+
+export const initialApiKeys: ApiKey[] = [
+  {
+    id: 'key_prod_01',
+    name: 'Production Primary Server Key',
+    keyPrefix: 'ff_live_51M2K...',
+    maskedKey: 'ff_live_51M2K••••••••••••••9xAz2',
+    fullKey: 'ff_live_51M2KhJ891Lka09sD7721Nzp9xAz2',
+    mode: 'live',
+    createdAt: '2026-01-15',
+    lastUsed: '2 minutes ago',
+    usageCount: 66420,
+    monthlyLimit: 100000,
+  },
+  {
+    id: 'key_test_02',
+    name: 'Sandbox Development & QA Key',
+    keyPrefix: 'ff_test_99aK...',
+    maskedKey: 'ff_test_99aK••••••••••••••8zQp1',
+    fullKey: 'ff_test_99aK8812Nvb44991OpqLk28zQp1',
+    mode: 'test',
+    createdAt: '2026-02-01',
+    lastUsed: 'Just now',
+    usageCount: 18450,
+    monthlyLimit: 500000,
+  }
+];
+
+export const initialWebhookEvents: WebhookEvent[] = [
+  {
+    id: 'evt_1Qp987391',
+    eventType: 'payment_intent.succeeded',
+    objectType: 'payment_intent',
+    status: 'delivered',
+    statusCode: 200,
+    latencyMs: 142,
+    timestamp: '2 mins ago',
+    endpointUrl: 'https://api.merchant.com/webhooks/finflow',
+    payload: {
+      id: 'pi_3M2K91823',
+      amount: 45000,
+      currency: 'usd',
+      customer: 'cus_apex_logistics',
+      status: 'succeeded',
+      livemode: true
+    }
+  },
+  {
+    id: 'evt_1Qp987392',
+    eventType: 'invoice.payment_overdue',
+    objectType: 'invoice',
+    status: 'delivered',
+    statusCode: 200,
+    latencyMs: 188,
+    timestamp: '14 mins ago',
+    endpointUrl: 'https://api.merchant.com/webhooks/finflow',
+    payload: {
+      invoice_id: 'inv_88201',
+      client: 'Acme SaaS Holdings',
+      amount_due: 4500.00,
+      days_overdue: 17,
+      action_required: 'send_dunning_notice'
+    }
+  },
+  {
+    id: 'evt_1Qp987393',
+    eventType: 'charge.refund.pending',
+    objectType: 'refund',
+    status: 'delivered',
+    statusCode: 200,
+    latencyMs: 95,
+    timestamp: '32 mins ago',
+    endpointUrl: 'https://api.merchant.com/webhooks/finflow',
+    payload: {
+      refund_id: 'ref_98410_c',
+      charge_id: 'ch_sandbox_441',
+      amount: 1250,
+      reason: 'requested_by_customer'
+    }
+  }
+];
+
+export const initialAlerts: AlertNotification[] = [
+  {
+    id: 'alt_01',
+    type: 'low_balance',
+    severity: 'high',
+    title: 'Low Operating Account Balance',
+    message: 'Your current account balance ($12,450.00) is below the configured threshold ($15,000.00). Top up or reconcile pending payouts to prevent payment settlement delays.',
+    timestamp: '10 mins ago',
+    actionType: 'add_funds',
+    resolved: false,
+  },
+  {
+    id: 'alt_02',
+    type: 'overdue_invoice',
+    severity: 'high',
+    title: '2 Invoices Currently Overdue',
+    message: 'Acme SaaS Holdings ($4,500.00, 17 days late) & Studio Vertex ($2,950.00, 4 days late) require follow-up.',
+    timestamp: '1 hour ago',
+    actionType: 'remind_invoice',
+    relatedId: 'inv_88201',
+    resolved: false,
+  },
+  {
+    id: 'alt_03',
+    type: 'api_anomaly',
+    severity: 'info',
+    title: 'Time-to-First-Call Decreased 60%',
+    message: 'Developer onboarding metrics improved significantly following the release of the Node and Python SDK v2.4.',
+    timestamp: '3 hours ago',
+    actionType: 'view_logs',
+    resolved: false,
+  }
+];
+
+// Retention Grid data (7 cols x 3 rows = 21 cells matching the design)
+export const retentionHeatmapCells = [
+  { level: 1, tooltip: 'Mon W1: 42% retention' },
+  { level: 2, tooltip: 'Tue W1: 58% retention' },
+  { level: 3, tooltip: 'Wed W1: 67% retention' },
+  { level: 5, tooltip: 'Thu W1: 82% retention' },
+  { level: 4, tooltip: 'Fri W1: 74% retention' },
+  { level: 7, tooltip: 'Sat W1: 96% retention' },
+  { level: 6, tooltip: 'Sun W1: 89% retention' },
+  
+  { level: 3, tooltip: 'Mon W2: 64% retention' },
+  { level: 4, tooltip: 'Tue W2: 71% retention' },
+  { level: 6, tooltip: 'Wed W2: 88% retention' },
+  { level: 7, tooltip: 'Thu W2: 98% retention' },
+  { level: 5, tooltip: 'Fri W2: 83% retention' },
+  { level: 6, tooltip: 'Sat W2: 91% retention' },
+  { level: 7, tooltip: 'Sun W2: 95% retention' },
+  
+  { level: 2, tooltip: 'Mon W3: 54% retention' },
+  { level: 3, tooltip: 'Tue W3: 62% retention' },
+  { level: 4, tooltip: 'Wed W3: 73% retention' },
+  { level: 6, tooltip: 'Thu W3: 86% retention' },
+  { level: 4, tooltip: 'Fri W3: 75% retention' },
+  { level: 5, tooltip: 'Sat W3: 81% retention' },
+  { level: 3, tooltip: 'Sun W3: 69% retention' },
+];
+
+export const dauHistoryData: DauMetric[] = [
+  { date: 'Aug 26', dau: 1840, apiCalls: 48200, successRate: 99.96 },
+  { date: 'Aug 27', dau: 1950, apiCalls: 52100, successRate: 99.98 },
+  { date: 'Aug 28', dau: 2110, apiCalls: 58900, successRate: 99.99 },
+  { date: 'Aug 29', dau: 2320, apiCalls: 63400, successRate: 99.97 },
+  { date: 'Aug 30', dau: 2480, apiCalls: 71200, successRate: 99.98 },
+  { date: 'Aug 31', dau: 2650, apiCalls: 79800, successRate: 99.99 },
+  { date: 'Sep 01', dau: 2890, apiCalls: 86400, successRate: 99.98 },
+];
